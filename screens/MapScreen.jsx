@@ -1,23 +1,40 @@
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import MapView, { Polyline } from 'react-native-maps';
+import Flights from '../data/dummy_data';
 
-const flightCoordinates = [
-  { latitude: 37.78825, longitude: -122.4324 }, // Origin
-  { latitude: 34.05223, longitude: -118.24368 }, // Destination
-  // ... intermediate points if needed
+const COLORS = [
+  'red',
+  'blue',
+  'yellow',
+  'green',
+  'pink',
+  'white',
+  'brown',
+  'orange',
+  'purple',
+  'cyan',
+  'magenta',
 ];
 
-<MapView
-  style={{ flex: 1 }}
-  initialRegion={{
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  }}
->
-  <Polyline
-    coordinates={flightCoordinates}
-    strokeColor="#000" // black
-    strokeWidth={3}
-  />
-</MapView>;
+export default function MapScreen() {
+  return (
+    <View style={styles.container}>
+      <MapView style={styles.map}>
+        {Flights.map((flight, index) => (
+          <Polyline
+            key={flight.callsign}
+            coordinates={flight.coordinates}
+            strokeColor={COLORS[index % COLORS.length]}
+            strokeWidth={3}
+          />
+        ))}
+      </MapView>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  map: { flex: 1 },
+});

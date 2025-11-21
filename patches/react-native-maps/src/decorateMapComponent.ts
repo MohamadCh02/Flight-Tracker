@@ -6,28 +6,28 @@ import {
   UIManager,
   type HostComponent,
 } from 'react-native';
-import {PROVIDER_DEFAULT, PROVIDER_GOOGLE} from './ProviderConstants';
-import type {Provider} from './sharedTypes';
-import type {MapCallout} from './MapCallout';
-import type {MapOverlay} from './MapOverlay';
-import type {MapCalloutSubview} from './MapCalloutSubview';
-import type {MapCircle} from './MapCircle';
-import type {MapHeatmap} from './MapHeatmap';
-import type {MapLocalTile} from './MapLocalTile';
-import type {MapMarker} from './MapMarker';
-import type {MapPolygon} from './MapPolygon';
-import type {MapPolyline} from './MapPolyline';
-import type {MapUrlTile} from './MapUrlTile';
-import type {MapWMSTile} from './MapWMSTile';
-import {Commands} from './MapViewNativeComponent';
-import GooglePolygon from './specs/NativeComponentGooglePolygon';
-import FabricMarker from './specs/NativeComponentMarker';
-import FabricUrlTile from './specs/NativeComponentUrlTile';
-import FabricWMSTile from './specs/NativeComponentWMSTile';
-import FabricCallout from './specs/NativeComponentCallout';
-import FabricPolyline from './specs/NativeComponentPolyline';
-import FabricCircle from './specs/NativeComponentCircle';
-import FabricOverlay from './specs/NativeComponentOverlay';
+import {PROVIDER_DEFAULT, PROVIDER_GOOGLE} from '../../../node_modules/react-native-maps/src/ProviderConstants';
+import type {Provider} from '../../../node_modules/react-native-maps/src/sharedTypes';
+import type {MapCallout} from '../../../node_modules/react-native-maps/src/MapCallout';
+import type {MapOverlay} from '../../../node_modules/react-native-maps/src/MapOverlay';
+import type {MapCalloutSubview} from '../../../node_modules/react-native-maps/src/MapCalloutSubview';
+import type {MapCircle} from '../../../node_modules/react-native-maps/src/MapCircle';
+import type {MapHeatmap} from '../../../node_modules/react-native-maps/src/MapHeatmap';
+import type {MapLocalTile} from '../../../node_modules/react-native-maps/src/MapLocalTile';
+import type {MapMarker} from '../../../node_modules/react-native-maps/src/MapMarker';
+import type {MapPolygon} from '../../../node_modules/react-native-maps/src/MapPolygon';
+import type {MapPolyline} from '../../../node_modules/react-native-maps/src/MapPolyline';
+import type {MapUrlTile} from '../../../node_modules/react-native-maps/src/MapUrlTile';
+import type {MapWMSTile} from '../../../node_modules/react-native-maps/src/MapWMSTile';
+import {Commands} from '../../../node_modules/react-native-maps/src/MapViewNativeComponent';
+import GooglePolygon from '../../../node_modules/react-native-maps/src/specs/NativeComponentGooglePolygon';
+import FabricMarker from '../../../node_modules/react-native-maps/src/specs/NativeComponentMarker';
+import FabricUrlTile from '../../../node_modules/react-native-maps/src/specs/NativeComponentUrlTile';
+import FabricWMSTile from '../../../node_modules/react-native-maps/src/specs/NativeComponentWMSTile';
+import FabricCallout from '../../../node_modules/react-native-maps/src/specs/NativeComponentCallout';
+import FabricPolyline from '../../../node_modules/react-native-maps/src/specs/NativeComponentPolyline';
+import FabricCircle from '../../../node_modules/react-native-maps/src/specs/NativeComponentCircle';
+import FabricOverlay from '../../../node_modules/react-native-maps/src/specs/NativeComponentOverlay';
 
 export const SUPPORTED: ImplementationStatus = 'SUPPORTED';
 export const USES_DEFAULT_IMPLEMENTATION: ImplementationStatus =
