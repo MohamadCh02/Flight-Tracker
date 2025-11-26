@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Buffer } from 'buffer';
 
 import {
   Text,
@@ -11,12 +12,39 @@ import { FlatList } from 'react-native-gesture-handler';
 import Flights from '../data/dummy_data';
 
 export default function FlightOverviewScreen(props) {
-  const flights = Flights;
+  // const [flights, setFlights] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  // const credentials = Buffer.from('Kelsier:YY4Ch5~63!C9gkw').toString('base64');
+
+  // const fetchFlights = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       'https://opensky-network.org/api/states/all',
+  //       {
+  //         headers: {
+  //           Authorization: 'Basic ${credentials}',
+  //         },
+  //       },
+  //     );
+  //     const data = await response.json();
+  //     setFlights(data.states || []);
+  //   } catch (error) {
+  //     console.error('Error fetching flight data:', error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchFlights();
+  // }, []);
+
+  // if (loading) return <Text style={styles.text}>Loading flights</Text>;
 
   return (
     <FlatList
       style={styles.container}
-      data={flights}
+      data={Flights}
       keyExtractor={item => item.callsign}
       renderItem={({ item }) => (
         <View style={styles.flightCard}>

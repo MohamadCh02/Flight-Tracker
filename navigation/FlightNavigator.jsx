@@ -1,10 +1,10 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import FlightOverviewScreen from '../screens/FlightsOverviewScreen';
 import FlightDetailsScreen from '../screens/FlightDetailsScreen';
 import MapScreen from '../screens/MapScreen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,7 +29,14 @@ function FlightDetailsNavigater() {
 export default function TabNabigator() {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ color, size }) => {
+            const iconName = route.name === 'Home' ? 'home' : 'map';
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}
+      >
         <Tab.Screen
           name="Home"
           component={FlightDetailsNavigater}

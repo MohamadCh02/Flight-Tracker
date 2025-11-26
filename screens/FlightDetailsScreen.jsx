@@ -1,14 +1,35 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
 import { Text, ScrollView, StyleSheet, View } from 'react-native';
 import MapView, { Polyline } from 'react-native-maps';
 
 export default function FlightDetailsScreen(props) {
   const { itemData } = props.route.params;
   const hasPath = Array.isArray(itemData.coordinates);
-  const startPoint = hasPath && itemData.coordinates.length > 0
-    ? itemData.coordinates[0]
-    : { latitude: 48.8566, longitude: 2.3522 };
+
+  const fullPath =
+    hasPath && itemData.coordinates.length > 0
+      ? itemData.coordinates
+      : [{ latitude: 48.8566, longitude: 2.3522 }];
+
+  const startPoint = fullPath[0];
+
+  const [visiblePath, setVisiblePath] = useState([startPoint]);
+  const [index, setIndex] = useState(1);
+
+  useEffect(() => {
+    if (!hasPath || fullPath.length <= 1) return;
+
+    if (index >= fullPath.length) return;
+
+    const interval = setInterval(() => {
+      setVisiblePath(prev => [...prev, fullPath[index]]);
+      setIndex(i => i + 1);
+    }, 600);
+
+    return () => clearInterval(interval);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, fullPath]);
+
   const mapRegion = {
     ...startPoint,
     latitudeDelta: 5,
@@ -27,13 +48,23 @@ export default function FlightDetailsScreen(props) {
         </Text>
         <Text style={styles.text}>Category: {itemData.category}</Text>
       </View>
+
       <View style={styles.mapContainer}>
         <MapView style={styles.map} initialRegion={mapRegion}>
-          {hasPath && itemData.coordinates.length > 1 && (
+          {hasPath && fullPath.length > 1 && (
             <Polyline
-              coordinates={itemData.coordinates}
+              coordinates={fullPath}
+              strokeColor="rgba(255,255,255,0.3)"
+              strokeWidth={4}
+            />
+          )}
+
+          {visiblePath.length > 1 && (
+            <Polyline
+              coordinates={visiblePath}
               strokeColor="red"
-              strokeWidth={3}
+              strokeWidth={5}
+              lineCap="round"
             />
           )}
         </MapView>
@@ -47,17 +78,14 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   container: { padding: 16, backgroundColor: '#111', marginTop: 70 },
+
   flightCard: {
     borderRadius: 4,
     backgroundColor: 'white',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
+    shadowOffset: { width: 0, height: 7 },
     shadowOpacity: 0.41,
     shadowRadius: 9.11,
-
     elevation: 14,
     width: 300,
     padding: 20,
@@ -65,14 +93,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
   },
-  text: { color: 'Black', textAlign: 'center' },
+
+  text: { color: 'black', textAlign: 'center' },
+
   mapContainer: {
     height: 300,
     borderRadius: 12,
     overflow: 'hidden',
     marginTop: 16,
   },
-  map: {
-    flex: 1,
-  },
+
+  map: { flex: 1 },
 });
