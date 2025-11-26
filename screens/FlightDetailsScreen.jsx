@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Text, ScrollView, StyleSheet, View } from 'react-native';
-import MapView, { Marker, Polyline } from 'react-native-maps';
+import MapView, { Polyline } from 'react-native-maps';
 
 export default function FlightDetailsScreen(props) {
   const { itemData } = props.route.params;
   const hasPath = Array.isArray(itemData.coordinates);
 
-  // Live API entries usually have a single current location; keep polyline support
-  // for dummy data and future multi-point tracks.
   const fullPath =
     hasPath && itemData.coordinates.length > 0
       ? itemData.coordinates
@@ -15,11 +13,9 @@ export default function FlightDetailsScreen(props) {
 
   const startPoint = fullPath[0];
 
-  // ---- ANIMATION STATE ----
   const [visiblePath, setVisiblePath] = useState([startPoint]);
   const [index, setIndex] = useState(1);
 
-  // ---- ANIMATE GROWING HIGHLIGHT ----
   useEffect(() => {
     if (!hasPath || fullPath.length <= 1) return;
 
@@ -28,7 +24,7 @@ export default function FlightDetailsScreen(props) {
     const interval = setInterval(() => {
       setVisiblePath(prev => [...prev, fullPath[index]]);
       setIndex(i => i + 1);
-    }, 6000); // speed of highlight animation
+    }, 600);
 
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -55,15 +51,6 @@ export default function FlightDetailsScreen(props) {
 
       <View style={styles.mapContainer}>
         <MapView style={styles.map} initialRegion={mapRegion}>
-          {startPoint && (
-            <Marker
-              coordinate={startPoint}
-              title={itemData.callsign}
-              description={`Origin: ${itemData.OriginCountry || 'Unknown'}`}
-            />
-          )}
-
-          {/* 1️⃣ Faint full route */}
           {hasPath && fullPath.length > 1 && (
             <Polyline
               coordinates={fullPath}
@@ -72,7 +59,6 @@ export default function FlightDetailsScreen(props) {
             />
           )}
 
-          {/* 2️⃣ Highlight animated route */}
           {visiblePath.length > 1 && (
             <Polyline
               coordinates={visiblePath}
