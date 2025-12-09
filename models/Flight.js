@@ -6,6 +6,7 @@ export default class Flight {
     category,
     coordinates,
   ) {
+    this.id = callsign;
     this.callsign = callsign;
     this.OriginCountry = OriginCountry;
     this.DestinationCountry = DestinationCountry;

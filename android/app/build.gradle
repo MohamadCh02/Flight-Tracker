@@ -3,7 +3,8 @@ apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
 
 project.ext.vectoricons = [
-    iconFontNames: ['Ionicons.ttf']
+    // Add every icon font family you actually use from react-native-vector-icons
+    iconFontNames: ['Ionicons.ttf', 'FontAwesome.ttf']
 ]
 
 /**
